@@ -5,12 +5,23 @@
 //  Created by Jordan Gustafson on 2/2/20.
 //
 
+import Combine
+
 public struct Logger {
     
-    public static let shared: Logger = Logger()
+    private static let errorSubject: PassthroughSubject<Error, Never> = PassthroughSubject()
     
-    public func log(message: String) {
-        print(message)
+    /// Publisher that sends any errors that are logged with the logger
+    public static var errorPublisher: AnyPublisher<Error, Never> {
+        return errorSubject
+            .eraseToAnyPublisher()
+    }
+    
+    /// Logs an error to the console
+    /// - Parameter error: The error to be logged
+    public static func log(error: Error) {
+        dump(error)
+        errorSubject.send(error)
     }
     
 }
