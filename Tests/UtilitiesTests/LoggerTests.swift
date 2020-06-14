@@ -44,8 +44,17 @@ final class LoggerTests: XCTestCase {
     
 }
 
+//MARK: - All Test Cases
 
-struct MockError: Error, Equatable {
+extension LoggerTests {
+    
+    static var allTests = [
+        ("testErrorPublisher", testErrorPublisher)
+    ]
+    
+}
+
+fileprivate struct MockError: Error, Equatable {
     
     let localizedDescription: String
     
